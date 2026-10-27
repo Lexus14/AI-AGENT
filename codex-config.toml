@@ -2,7 +2,10 @@
 # TIDAK berisi token. Token dibaca dari environment lewat env_key.
 # Model Sol di AgentRouter hanya dilayani lewat Responses API,
 # jadi wire_api harus "responses" (bukan "chat").
-model = "gpt-5.6-sol"
+# Catatan: "gpt-6-sol" (tanpa versi) TIDAK ada di akun ini dan
+# ditolak AgentRouter dengan 503 "no available channel".
+# Pakai salah satu dari daftar akun: gpt-5.6-sol, gpt-6-astra, gpt-6.1-sol.
+model = "gpt-6.1-sol"
 model_provider = "agentrouter"
 
 [model_providers.agentrouter]
