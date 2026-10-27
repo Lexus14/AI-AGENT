@@ -1,8 +1,44 @@
-# OpenCode + AgentRouter (Termux)
+# AI-AGENT: Codex (jalan) + OpenCode (terbatas) + AgentRouter
 
-Setup OpenCode memakai token AgentRouter, supaya nanti tinggal
+Setup agen AI memakai token AgentRouter, supaya nanti tinggal
 `git clone` lalu jalankan lagi — tidak perlu mengetik config
 berulang-ulang.
+
+## JALUR YANG TERBUKTI JALAN (2026-10-27): Codex CLI
+
+Di dalam Ubuntu proot-distro, setelah `git clone`:
+
+```bash
+bash install-codex-ubuntu.sh
+export AGENTROUTER_API_KEY='token-kamu'
+bash run-codex.sh
+```
+
+`run-codex.sh` memakai `codex --no-daemon`, karena daemon
+Codex tidak bisa membuat socket-nya di dalam proot.
+Model default: `gpt-6.1-sol` (lihat `codex-config.toml`).
+Jangan pakai `gpt-6-sol` polos: AgentRouter menolaknya
+dengan 503 "no available channel".
+Tes pertama yang terbukti berhasil: `hallo` -> dibalas
+"Halo! Ada yang bisa saya bantu?", walau lambat (2 menit).
+
+Kenapa lambat: model Sol adalah model penalaran, jawaban
+pertama butuh waktu, dan kalau sedang kena rate limit
+di region penyedia, Codex akan mencoba ulang beberapa kali.
+Kalau muncul rate limit, tekan Esc, tunggu beberapa menit,
+lalu coba lagi atau ganti model lewat `/model`
+(`gpt-6-astra` / `gpt-5.6-sol`).
+
+## JALUR OpenCode: TERBATAS untuk model Sol
+
+OpenCode terpasang (1.19.4) dan config terbaca, tapi model
+Sol di AgentRouter HANYA dilayani lewat Responses API,
+sementara OpenCode 1.19.4 tetap mengirim lewat Chat
+Completions untuk model ini, sehingga selalu error:
+"Model gpt-5.6-sol does not support /v1/chat/completions,
+please use /v1/responses instead" — walau `opencode.json`
+sudah diganti ke `@ai-sdk/openai`. Jadi untuk model Sol,
+pakai Codex, bukan OpenCode.
 
 ## Sekali saja (instalasi)
 
