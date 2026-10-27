@@ -10,6 +10,7 @@ npm install -g opencode-ai
 echo "3. Salin config AgentRouter..."
 mkdir -p ~/.config/opencode
 cp opencode.json ~/.config/opencode/opencode.json
+chmod +x run.sh install.sh install-ubuntu.sh 2>/dev/null || true
 echo "4. Cek versi..."
 opencode --version
 echo ""

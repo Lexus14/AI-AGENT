@@ -15,10 +15,33 @@ bash install.sh
 `install.sh` memasang Node.js, OpenCode (`npm install -g opencode-ai`),
 dan menyalin `opencode.json` ke `~/.config/opencode/opencode.json`.
 
-Catatan: di Termux polos, OpenCode kadang salah mendeteksi
-arsitektur HP. Kalau `opencode --version` gagal, jalurnya adalah
-Ubuntu di dalam Termux (`proot-distro`), lalu ulangi instalasi
-di dalam Ubuntu itu.
+## Penting: Termux polos DITOLAK oleh npm OpenCode
+
+Paket `opencode-ai` versi npm hanya menerima OS darwin/linux/win32,
+bukan `android`. Jadi instalasi di Termux polos AKAN gagal dengan
+`EBADPLATFORM ... Actual os: android`. Itu sudah terbukti di HP
+(2026-10-27). Jalur yang dipakai adalah Ubuntu di dalam Termux:
+
+```bash
+pkg install -y proot-distro
+proot-distro install ubuntu
+proot-distro login ubuntu
+```
+
+Di dalam Ubuntu itu (prompt berubah jadi `root@localhost:~#`):
+
+```bash
+apt update && apt install -y git
+git clone https://github.com/Lexus14/AI-AGENT.git
+cd AI-AGENT
+bash install-ubuntu.sh
+export AGENTROUTER_API_KEY='token-kamu'
+./run.sh
+```
+
+`install-ubuntu.sh` memakai `apt`/`npm` (bukan `pkg` Termux).
+Setiap kali mau memakai lagi, ulangi `proot-distro login ubuntu`,
+lalu `cd AI-AGENT` dan dua baris terakhir di atas.
 
 ## Setiap kali mau memakai
 
