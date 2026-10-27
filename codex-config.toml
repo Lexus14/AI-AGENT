@@ -1,0 +1,12 @@
+# Config Codex CLI untuk AgentRouter.
+# TIDAK berisi token. Token dibaca dari environment lewat env_key.
+# Model Sol di AgentRouter hanya dilayani lewat Responses API,
+# jadi wire_api harus "responses" (bukan "chat").
+model = "gpt-5.6-sol"
+model_provider = "agentrouter"
+
+[model_providers.agentrouter]
+name = "AgentRouter"
+base_url = "https://agentrouter.org/v1"
+env_key = "AGENTROUTER_API_KEY"
+wire_api = "responses"
