@@ -7,4 +7,7 @@ if [ -z "$AGENTROUTER_API_KEY" ]; then
   echo "  export AGENTROUTER_API_KEY='token-kamu'"
   exit 1
 fi
-exec codex "$@"
+# Di dalam proot-distro, server latar (daemon) Codex tidak bisa
+# membuat socket-nya, jadi harus jalan tanpa daemon, sesuai
+# saran error Codex sendiri.
+exec codex --no-daemon "$@"
