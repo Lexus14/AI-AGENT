@@ -4,6 +4,8 @@
 # Linux sungguhan (Ubuntu di proot-distro).
 # TIDAK berisi token. Token diisi lewat environment di run.sh.
 set -e
+echo "0. Perbaiki dpkg yang sempat terputus (kalau ada)..."
+dpkg --configure -a || true
 echo "1. Update dan pasang Node.js..."
 apt update
 apt install -y nodejs npm git
